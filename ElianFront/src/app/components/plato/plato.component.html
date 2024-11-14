@@ -1,0 +1,98 @@
+<!-- src/app/components/plato/plato.component.html -->
+<div class="page-container">
+  <h1 class="page-title">
+    <i class="pi pi-book"></i>
+    Gestión de Platos
+  </h1>
+
+  <div class="table-container">
+    <div class="header-actions">
+      <button class="btn-add" (click)="mostrarModal()">
+        <i class="pi pi-plus"></i>
+      </button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th><i class="pi pi-tag"></i> Nombre</th>
+          <th><i class="pi pi-dollar"></i> Precio</th>
+          <th><i class="pi pi-cog"></i> Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let plato of platos" [attr.data-id]="plato.id">
+          <td>{{plato.nombre}}</td>
+          <td>${{plato.precio}}</td>
+          <td>
+            <div class="actions-container">
+              <button class="btn-action btn-edit" (click)="editarPlato(plato)">
+                <i class="pi pi-pencil"></i>
+              </button>
+              <button class="btn-action btn-delete" (click)="eliminarPlato(plato.id)">
+                <i class="pi pi-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal de Plato -->
+  <div class="modal" *ngIf="modalVisible">
+    <div class="modal-backdrop" (click)="cerrarModal()"></div>
+    <div class="modal-content">
+      <button class="btn-close" (click)="cerrarModal()">
+        <i class="pi pi-times"></i>
+      </button>
+      <div class="modal-header">
+        <div class="header-icon">
+          <i class="pi pi-book"></i>
+        </div>
+        <h3>{{ editando ? 'Editar Plato' : 'Nuevo Plato' }}</h3>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <i class="pi pi-tag"></i>
+          <input type="text" [(ngModel)]="nuevoPlato.nombre" name="nombre" placeholder="Nombre del plato" required>
+        </div>
+        <div class="form-group">
+          <i class="pi pi-dollar"></i>
+          <input type="number" [(ngModel)]="nuevoPlato.precio" name="precio" placeholder="Precio" required>
+        </div>
+      </div>
+
+      <button class="btn-save" [class.btn-save-active]="formularioValido" (click)="guardarPlato()">
+        <i class="pi pi-save"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmación -->
+  <div class="confirm-modal" *ngIf="showConfirmDialog">
+    <div class="modal-overlay" (click)="cancelarEliminacion()"></div>
+    <div class="confirm-content">
+      <h3>¿Está seguro de eliminar este plato?</h3>
+      <div class="confirm-actions">
+        <button class="confirm-btn confirm-btn-accept" (click)="confirmarEliminacion()">
+          <i class="pi pi-check"></i>
+        </button>
+        <button class="confirm-btn confirm-btn-cancel" (click)="cancelarEliminacion()">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de Notificación -->
+  <div *ngIf="showNotification" class="notification-toast" [ngClass]="notificationType">
+    <i class="pi" [ngClass]="{
+      'pi-check-circle': notificationType === 'success',
+      'pi-sync': notificationType === 'update',
+      'pi-trash': notificationType === 'delete'
+    }"></i>
+    {{ notificationMessage }}
+  </div>
+</div>

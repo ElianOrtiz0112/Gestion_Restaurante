@@ -1,0 +1,80 @@
+<!-- src/app/app.component.html -->
+<div class="app-container">
+  <ng-container *ngIf="!isAuthRoute()">
+    <header class="header" *ngIf="authService.isAuthenticated()">
+      <div class="logo-container">
+        <button class="menu-toggle" (click)="toggleSidebar()">
+          <i class="pi pi-bars"></i>
+        </button>
+        <i class="pi pi-utensils"></i>
+        <h1>¡No te pases!</h1>
+      </div>
+      <nav class="header-nav">
+        <a href="#" class="nav-item">Inicio</a>
+        <a href="#" class="nav-item">Menú</a>
+        <a href="#" class="nav-item">Quiénes Somos</a>
+        <a href="#" class="nav-item">Contacto</a>
+        <a href="#" class="nav-item">Reservaciones</a>
+        <button class="nav-item logout-button" (click)="logout()">
+          <i class="pi pi-power-off"></i>
+        </button>
+      </nav>
+    </header>
+
+    <div class="sidebar" [class.sidebar-open]="sidebarOpen" *ngIf="authService.isAuthenticated()">
+      <button class="sidebar-close" (click)="toggleSidebar()">
+        <i class="pi pi-times"></i>
+      </button>
+      <nav class="navigation">
+        <a class="nav-link" routerLink="/clientes" routerLinkActive="active">
+          <i class="pi pi-users"></i>
+          <span>Clientes</span>
+        </a>
+        <a class="nav-link" routerLink="/ordenes" routerLinkActive="active">
+          <i class="pi pi-list"></i>
+          <span>Órdenes</span>
+        </a>
+        <a class="nav-link" routerLink="/pedidos" routerLinkActive="active">
+          <i class="pi pi-shopping-cart"></i>
+          <span>Pedidos</span>
+        </a>
+        <a class="nav-link" routerLink="/platos" routerLinkActive="active">
+          <i class="pi pi-ticket"></i>
+          <span>Platos</span>
+        </a>
+      </nav>
+    </div>
+  </ng-container>
+
+  <main class="main-content" [ngClass]="{'with-header': authService.isAuthenticated() && !isAuthRoute()}">
+    <router-outlet></router-outlet>
+  </main>
+
+  <ng-container *ngIf="!isAuthRoute()">
+    <footer class="footer" *ngIf="authService.isAuthenticated()">
+      <div class="footer-content">
+        <div class="footer-section">
+          <i class="pi pi-utensils"></i>
+          <h3>¡No te pases!</h3>
+        </div>
+        
+        <div class="footer-section">
+          <div class="contact-group">
+            <i class="pi pi-phone"></i>
+            <span>+57 300 123 4567</span>
+          </div>
+          <div class="contact-group">
+            <i class="pi pi-envelope"></i>
+            <span>info&#64;saboresdelvalle.com</span>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <a href="#" class="social-link"><i class="pi pi-facebook"></i></a>
+          <a href="#" class="social-link"><i class="pi pi-instagram"></i></a>
+          <a href="#" class="social-link"><i class="pi pi-twitter"></i></a>
+        </div>
+      </div>
+    </footer>
+  </ng-container>
+</div>

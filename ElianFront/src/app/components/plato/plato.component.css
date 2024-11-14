@@ -1,0 +1,502 @@
+.page-title {
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  font-size: 1.8rem;
+  margin: 2rem auto;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  max-width: 1200px;
+  width: 90%;
+}
+
+.table-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 2rem;
+  margin: 2rem auto;
+  transition: all 0.3s ease;
+  max-width: 1200px;
+  width: 90%;
+  position: relative;
+}
+
+.table-container:hover {
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.btn-add {
+  background: none;
+  border: none;
+  color: #000000;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-add:hover {
+  transform: rotate(90deg);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  table-layout: fixed;
+}
+
+th, td {
+  padding: 1.2rem;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+th:nth-child(1), td:nth-child(1) { width: 35%; }
+th:nth-child(2), td:nth-child(2) { width: 35%; }
+th:nth-child(3), td:nth-child(3) { width: 30%; }
+
+.actions-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.btn-action {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-edit {
+  color: #9c27b0;
+}
+
+.btn-delete {
+  color: #ef4444;
+}
+
+.btn-action:hover {
+  transform: rotate(90deg);
+}
+
+.btn-edit:hover {
+  color: #7b1fa2;
+  transform: rotate(360deg);
+}
+
+.btn-delete:hover {
+  color: #dc2626;
+  transform: rotate(360deg);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 3rem;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  z-index: 1001;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  animation: modalEnter 0.3s ease-out;
+  min-height: 600px;
+}
+
+.header-icon {
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-icon i {
+  font-size: 3.5rem;
+  color: #000000;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.5rem;
+}
+
+.btn-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #6b7280;
+  transition: all 0.3s ease;
+}
+
+.btn-close:hover {
+  color: #6b7280;
+  transform: scale(1.1);
+}
+
+.form-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 1rem 1rem 1rem 2.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f9fafb;
+}
+
+.form-group input::placeholder {
+  color: #9ca3af;
+  opacity: 0.8;
+}
+
+.form-group input:hover,
+.form-group select:hover {
+  border-color: #7b1fa2;
+  background: #ffffff;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #7b1fa2;
+  box-shadow: 0 0 0 2px rgba(123, 31, 162, 0.1);
+  background: #ffffff;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.btn-save {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: #cccccc;
+  cursor: not-allowed;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-save-active {
+  color: #22c55e;
+  cursor: pointer;
+}
+
+.btn-save-active:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
+.btn-save i {
+  font-size: 2.5rem;
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInNotification {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutNotification {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+.notification-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  padding: 1.5rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  z-index: 10000;
+  animation: slideInNotification 0.8s ease-out, slideOutNotification 0.3s ease-in forwards;
+  animation-delay: 0s, 2.7s;
+  font-size: 1.1rem;
+}
+
+.notification-toast i {
+  font-size: 1.8rem;
+}
+
+.notification-toast.success i {
+  color: #22c55e;
+}
+
+.notification-toast.update i {
+  color: #7b1fa2;
+}
+
+.notification-toast.delete i {
+  color: #ef4444;
+}
+
+.confirm-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.confirm-content {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  z-index: 1001;
+  text-align: center;
+  animation: modalEnter 0.3s ease-out;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.confirm-content h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.2rem;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.confirm-btn {
+  width: 50px;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.confirm-btn-accept {
+  color: #22c55e;
+}
+
+.confirm-btn-cancel {
+  color: #ef4444;
+}
+
+.confirm-btn:hover {
+  transform: rotate(360deg);
+}
+
+.confirm-btn-accept:hover {
+  color: #15803d;
+}
+
+.confirm-btn-cancel:hover {
+  color: #dc2626;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideInNew {
+  0% {
+    opacity: 0;
+    transform: translateX(50px) scale(0.95);
+    background: rgba(34, 197, 94, 0.1);
+  }
+  50% {
+    transform: translateX(0) scale(1);
+    background: rgba(34, 197, 94, 0.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    background: transparent;
+  }
+}
+
+.slide-in-new {
+  animation: slideInNew 1s ease-out forwards;
+}
+
+@keyframes updateRow {
+  0% {
+    background: rgba(79, 70, 229, 0.1);
+    transform: scale(0.98);
+  }
+  50% {
+    background: rgba(79, 70, 229, 0.1);
+    transform: scale(1);
+  }
+  100% {
+    background: transparent;
+    transform: scale(1);
+  }
+}
+
+.update-highlight {
+  animation: updateRow 1s ease-out forwards;
+}
+
+@keyframes deleteAnimation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    background: transparent;
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.02);
+    background: rgba(239, 68, 68, 0.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+    background: rgba(239, 68, 68, 0.1);
+  }
+}
+
+.delete-animation {
+  animation: deleteAnimation 0.5s ease-out forwards;
+}
+
+.modal-content.closing {
+  animation: modalExit 0.3s ease-in forwards;
+}
+
+@keyframes modalExit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+tr {
+  transition: all 0.3s ease;
+  height: 73px;
+}

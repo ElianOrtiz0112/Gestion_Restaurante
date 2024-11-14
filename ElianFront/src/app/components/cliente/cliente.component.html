@@ -1,0 +1,118 @@
+<!-- src/app/components/cliente/cliente.component.html -->
+<div class="container">
+  <div class="card">
+    <h2 class="page-title"><i class="pi pi-users"></i> Gestión de Clientes</h2>
+
+    <div class="table-container">
+      <div class="header-actions">
+        <button class="btn-add" (click)="mostrarModal()">
+          <i class="pi pi-plus"></i>
+        </button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th><i class="pi pi-user"></i> Nombre</th>
+            <th><i class="pi pi-envelope"></i> Email</th>
+            <th><i class="pi pi-phone"></i> Teléfono</th>
+            <th><i class="pi pi-cog"></i> Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientes" class="fade-in" [attr.data-id]="cliente.id">
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.email }}</td>
+            <td>{{ cliente.telefono }}</td>
+            <td>
+              <div class="actions-container">
+                <button class="btn-action btn-edit" (click)="editarCliente(cliente)">
+                  <i class="pi pi-pencil"></i>
+                </button>
+                <button class="btn-action btn-delete" (click)="eliminarCliente(cliente.id)">
+                  <i class="pi pi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal sin animaciones -->
+  <div class="modal" *ngIf="modalVisible">
+    <div class="modal-overlay" (click)="cerrarModal()"></div>
+    <div class="modal-content">
+      <button class="btn-close" (click)="cerrarModal()">
+        <i class="pi pi-times"></i>
+      </button>
+      
+      <div class="modal-header">
+        <div class="header-icon">
+          <i class="pi" [ngClass]="{'pi-user-plus': !editando, 'pi-user-edit': editando}"></i>
+        </div>
+        <h3>{{ editando ? 'Editar Cliente' : 'Nuevo Cliente' }}</h3>
+      </div>
+
+      <form (ngSubmit)="crearCliente()" class="form-container">
+        <div class="input-group">
+          <div class="input-wrapper">
+            <i class="pi pi-user"></i>
+            <input type="text" 
+                   [(ngModel)]="nuevoCliente.nombre" 
+                   name="nombre" 
+                   placeholder="Nombre completo"
+                   required>
+          </div>
+          <div class="input-wrapper">
+            <i class="pi pi-envelope"></i>
+            <input type="email" 
+                   [(ngModel)]="nuevoCliente.email" 
+                   name="email" 
+                   placeholder="Correo electrónico"
+                   required>
+          </div>
+          <div class="input-wrapper">
+            <i class="pi pi-phone"></i>
+            <input type="tel" 
+                   [(ngModel)]="nuevoCliente.telefono" 
+                   name="telefono" 
+                   placeholder="Número telefónico"
+                   required>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-save" [disabled]="!formularioValido" [class.btn-save-active]="formularioValido">
+            <i class="pi pi-save"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="confirm-modal" *ngIf="showConfirmDialog">
+    <div class="modal-overlay" (click)="cancelarEliminacion()"></div>
+    <div class="confirm-content">
+      <h3>¿Está seguro de eliminar este cliente?</h3>
+      <div class="confirm-actions">
+        <button class="confirm-btn confirm-btn-accept" (click)="confirmarEliminacion()">
+          <i class="pi pi-check"></i>
+        </button>
+        <button class="confirm-btn confirm-btn-cancel" (click)="cancelarEliminacion()">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showNotification" class="notification-toast" [ngClass]="notificationType">
+    <i class="pi" [ngClass]="{
+      'pi-check-circle': notificationType === 'success',
+      'pi-sync': notificationType === 'update',
+      'pi-trash': notificationType === 'delete'
+    }"></i>
+    {{ notificationMessage }}
+  </div>
+</div>

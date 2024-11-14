@@ -1,0 +1,103 @@
+<!-- src/app/components/orden/orden.component.html -->
+<div class="page-container">
+  <h1 class="page-title">
+    <i class="pi pi-shopping-cart"></i>
+    Gestión de Órdenes
+  </h1>
+
+  <div class="table-container">
+    <div class="header-actions">
+      <button class="btn-add" (click)="mostrarModal()">
+        <i class="pi pi-plus"></i>
+      </button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th><i class="pi pi-user"></i> Cliente</th>
+          <th><i class="pi pi-calendar"></i> Fecha</th>
+          <th><i class="pi pi-cog"></i> Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let orden of ordenes" [attr.data-id]="orden.id">
+          <td>{{orden.clienteNombre || 'Cliente #' + orden.clienteId}}</td>
+          <td>{{orden.fecha | date:'dd/MM/yyyy'}}</td>
+          <td>
+            <div class="actions-container">
+              <button class="btn-action btn-edit" (click)="editarOrden(orden)">
+                <i class="pi pi-pencil"></i>
+              </button>
+              <button class="btn-action btn-delete" (click)="eliminarOrden(orden.id)">
+                <i class="pi pi-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal de Orden -->
+  <div class="modal" *ngIf="modalVisible">
+    <div class="modal-backdrop" (click)="cerrarModal()"></div>
+    <div class="modal-content">
+      <button class="btn-close" (click)="cerrarModal()">
+        <i class="pi pi-times"></i>
+      </button>
+      <div class="modal-header">
+        <div class="header-icon">
+          <i class="pi pi-shopping-cart"></i>
+        </div>
+        <h3>{{ editando ? 'Editar Orden' : 'Nueva Orden' }}</h3>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <i class="pi pi-user"></i>
+          <select [(ngModel)]="nuevaOrden.clienteId" name="clienteId" required>
+            <option value="">Seleccionar Cliente</option>
+            <option *ngFor="let cliente of clientes" [value]="cliente.id">
+              {{cliente.nombre}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <i class="pi pi-calendar"></i>
+          <input type="date" [(ngModel)]="nuevaOrden.fecha" name="fecha" required>
+        </div>
+      </div>
+
+      <button class="btn-save" [class.btn-save-active]="formularioValido" (click)="guardarOrden()">
+        <i class="pi pi-save"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmación -->
+  <div class="confirm-modal" *ngIf="showConfirmDialog">
+    <div class="modal-overlay" (click)="cancelarEliminacion()"></div>
+    <div class="confirm-content">
+      <h3>¿Está seguro de eliminar esta orden?</h3>
+      <div class="confirm-actions">
+        <button class="confirm-btn confirm-btn-accept" (click)="confirmarEliminacion()">
+          <i class="pi pi-check"></i>
+        </button>
+        <button class="confirm-btn confirm-btn-cancel" (click)="cancelarEliminacion()">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de Notificación -->
+  <div *ngIf="showNotification" class="notification-toast" [ngClass]="notificationType">
+    <i class="pi" [ngClass]="{
+      'pi-check-circle': notificationType === 'success',
+      'pi-sync': notificationType === 'update',
+      'pi-trash': notificationType === 'delete'
+    }"></i>
+    {{ notificationMessage }}
+  </div>
+</div>
